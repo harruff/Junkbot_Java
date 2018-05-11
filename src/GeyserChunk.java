@@ -8,7 +8,7 @@ public class GeyserChunk {
 	private boolean isRefinery = false;
 	
 	private Game game;
-	private Player self;
+	//private Player self;
 	
 	public GeyserChunk(Unit geyser, Game game) {
 		this.geyser = geyser;

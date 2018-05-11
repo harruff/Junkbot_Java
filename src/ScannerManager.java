@@ -5,18 +5,19 @@ import bwapi.*;
 public class ScannerManager {
 	private ArrayList<Unit> comsats = new ArrayList<Unit>();
 	private Game game;
-	private Player self;
+	//private Player self;
 	
-	private TilePosition enemyBase = null, ourBase = null, ourNatExpo = null, enemyNatExpo = null;
-	private ArrayList<EnemyMemoryChunk> enemyMemory = new ArrayList<EnemyMemoryChunk>();
+	//private TilePosition enemyBase = null, ourBase = null, ourNatExpo = null, enemyNatExpo = null;
+	//private ArrayList<EnemyMemoryChunk> enemyMemory = new ArrayList<EnemyMemoryChunk>();
 	
-	private int lastScanFrame = 0;
+	//private int lastScanFrame = 0;
 	
 	public void setGame(Game g) {
 		this.game = g;
-		this.self = game.self();
+		//this.self = game.self();
 	}
 
+	/*
     public void setOurInformation(TilePosition ob, TilePosition one) {
 		ourBase = ob;
 		ourNatExpo = one;
@@ -30,6 +31,7 @@ public class ScannerManager {
     public void updateEnemyMemory(ArrayList<EnemyMemoryChunk> em) {
     	enemyMemory = em;
     }
+    */
    
 	public void add(Unit m) {comsats.add(m);}
 	public void remove(Unit m) {comsats.remove(m);}	
@@ -58,7 +60,7 @@ public class ScannerManager {
 					 for ( int i = 0; i < comsats.size(); i++) {
 						 if (comsats.get(i).getEnergy() > 50) {
 							 comsats.get(i).useTech(TechType.Scanner_Sweep, cloaked.getPosition());
-							 lastScanFrame = game.getFrameCount();
+							 //lastScanFrame = game.getFrameCount();
 							 break; //don't scan more than once;
 						 }
 					 }

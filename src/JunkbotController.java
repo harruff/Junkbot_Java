@@ -175,12 +175,12 @@ public class JunkbotController extends DefaultBWListener {
     	infoManager.onStart();
     	squadManager.setOurInformation(infoManager.getOurBase(), infoManager.getOurNatExpo());
     	squadManager.setChokes(infoManager.getChokepoints());
-    	scanManager.setOurInformation(infoManager.getOurBase(), infoManager.getOurNatExpo());
+    	//scanManager.setOurInformation(infoManager.getOurBase(), infoManager.getOurNatExpo());
     	prodManager.setOurInformation(infoManager.getOurBase(), infoManager.getOurNatExpo());
     	
     	if (infoManager.getEnemyBase() != null && infoManager.getEnemyNatExpo() != null) {
     		squadManager.setEnemyInformation(infoManager.getEnemyBase(), infoManager.getEnemyNatExpo());
-    		scanManager.setEnemyInformation(infoManager.getEnemyBase(), infoManager.getEnemyNatExpo());
+    		//scanManager.setEnemyInformation(infoManager.getEnemyBase(), infoManager.getEnemyNatExpo());
     		prodManager.setEnemyInformation(infoManager.getEnemyBase(), infoManager.getEnemyNatExpo());
     	}
     	
@@ -240,13 +240,13 @@ public class JunkbotController extends DefaultBWListener {
     	
     	if (infoManager.getEnemyBase() != null && infoManager.getEnemyNatExpo() != null) {
     		squadManager.setEnemyInformation(infoManager.getEnemyBase(), infoManager.getEnemyNatExpo());
-    		scanManager.setEnemyInformation(infoManager.getEnemyBase(), infoManager.getEnemyNatExpo());
+    		//scanManager.setEnemyInformation(infoManager.getEnemyBase(), infoManager.getEnemyNatExpo());
     		prodManager.setEnemyInformation(infoManager.getEnemyBase(), infoManager.getEnemyNatExpo());
     	}
     	
     	squadManager.updateEnemyMemory(infoManager.getEnemyMemory());
-    	scanManager.updateEnemyMemory(infoManager.getEnemyMemory());
-    	prodManager.updateEnemyMemory(infoManager.getEnemyMemory());
+    	//scanManager.updateEnemyMemory(infoManager.getEnemyMemory());
+    	//prodManager.updateEnemyMemory(infoManager.getEnemyMemory());
     	
         // BUILD ORDER!!!
     	prodManager.onFrameBase(); 

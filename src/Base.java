@@ -153,6 +153,7 @@ public class Base {
 		return s;
 	}
 	
+	@SuppressWarnings("unused")
 	public int getMinSCVTotal() {
 		int total = 0;
 		for (MineralChunk mc : mineralChunks) {
@@ -163,6 +164,7 @@ public class Base {
 		return total;
 	}
 	
+	@SuppressWarnings("unused")
 	public int getGasSCVTotal() {
 		int total = 0;
 		for (GeyserChunk gc : geyserChunks) {
@@ -173,6 +175,7 @@ public class Base {
 		return total;
 	}
 	
+	@SuppressWarnings("unused")
 	public int getMilitiaTotal() {
 		int total = 0;
 		if (mm != null) {
@@ -361,9 +364,11 @@ public class Base {
 		game.drawTextScreen(5, 5, "enemies: " + String.valueOf(enemies.size()));
 		
 		//Send enemies to MilitiaManager
+		/*
 		if (mm != null) {
 			mm.setEnemies(enemies);
 		}
+		*/
 		
 		//Based on militiaNeeded, determine how to pull SCVs
 		if (militiaNeeded > 0 && mm != null) {		

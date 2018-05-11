@@ -1,4 +1,4 @@
-import java.util.*;
+//import java.util.*;
 import bwapi.*;
 
 public class ScoutChunk {
@@ -12,14 +12,14 @@ public class ScoutChunk {
 	private int framesStill = 0;
 	
 	private Game game;
-	private Player self;
+	//private Player self;
 	
 	public ScoutChunk(Unit scout, Position target, Game game, boolean main) {
 		this.scout = scout;
 		targetPos = target;
 		targetTile = targetPos.toTilePosition();
 		this.game = game;
-		self = this.game.self();
+		//self = this.game.self();
 		scoutingMain = main;
 	}
 	

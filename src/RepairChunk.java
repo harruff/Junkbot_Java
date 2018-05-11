@@ -1,4 +1,4 @@
-import java.util.*;
+//import java.util.*;
 import bwapi.*;
 
 public class RepairChunk {
@@ -6,7 +6,6 @@ public class RepairChunk {
 	private Unit repairTarget;
 	
 	private Game game;
-	private Player self;
 	
 	public RepairChunk(Unit scv, Unit target, Game game) {
 		repairman = scv;

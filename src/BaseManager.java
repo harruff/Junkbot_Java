@@ -15,19 +15,19 @@ public class BaseManager {
 	private int gasSCVTotal = 0;
 	private int repairmenTotal = 0;
 	private int buildersTotal = 0;
-	private int militiaTotal = 0;
+	//private int militiaTotal = 0;
 	
 	//private ArrayList<Unit> builders = new ArrayList<Unit>();	//3. Constructing buildings		-- Yellow
 	private ArrayList<Unit> scouts = new ArrayList<Unit>();		//4. Scouting					-- Purple
 	private ArrayList<Unit> repairmen = new ArrayList<Unit>();	//5. Repairing					-- Orange
 	private ArrayList<Unit> militia = new ArrayList<Unit>();	//6. Combat						-- Red
 	
-	private ArrayList<Unit> enemies = new ArrayList<Unit>();
+	//private ArrayList<Unit> enemies = new ArrayList<Unit>();
 	
 	ArrayList<Unit> allMinSCVs = new ArrayList<Unit>();
 	
 	private Game game;
-	private Player self;
+	//private Player self;
 	
 	private ArrayList<TilePosition> reservedTiles = new ArrayList<TilePosition>();
 	private TilePosition enemyBase = null, ourBase = null, ourNatExpo = null, enemyNatExpo = null;
@@ -37,7 +37,7 @@ public class BaseManager {
 	
 	public void setGame(Game g) {
 		this.game = g;
-		this.self = game.self();
+		//this.self = game.self();
 	}
 	
     public void setOurInformation(TilePosition ob, TilePosition one) {
@@ -408,10 +408,10 @@ public class BaseManager {
 		}
 		
         //System.out.println("Got Here: 1");
-		int basesNum = 0;
+		//int basesNum = 0;
 		for (Base b : bases) {
 			//game.drawTextScreen(170, 330 + 15*basesNum, "Base " + (basesNum+1) + ": " + b.toString());
-			basesNum++;
+			//basesNum++;
 	        
 	        for (Unit m : b.getMinerals()) {
 				if (!m.exists()) {
@@ -619,7 +619,7 @@ public class BaseManager {
 				}
 			}
 			for (Unit toAdd : allMinSCVs) {
-				boolean added = false;
+				//boolean added = false;
 				//resetSCV
 				toAdd.stop();
 				addMinSCV(toAdd);
@@ -663,10 +663,12 @@ public class BaseManager {
 				}
 			}
 			
+			/*
 			//BUILDER Manager
 			for (Unit bu : b.getBuilders()) {				
 		    	// if it's a idle builder, send it to the closest mineral line by default!***********************************************
-			}	
+			}
+			*/	
 		}
 	
 		//do base onFrame()
@@ -723,13 +725,11 @@ public class BaseManager {
     					TilePosition tl = new TilePosition(x, y);
     			    	TilePosition tr = new TilePosition(tl.getX() + buildingType.tileWidth(), tl.getY());
     			    	TilePosition bl = new TilePosition(tl.getX(), tl.getY() + buildingType.tileHeight());
-    			    	TilePosition br = new TilePosition(tr.getX(), bl.getY());
     			    	
     			    	//IF the buildingType can build an addon, THEN
     			    	if (buildingType == UnitType.Terran_Factory || buildingType == UnitType.Terran_Starport || buildingType == UnitType.Terran_Command_Center) {
     			    		//Top right and bottom right has two more tiles tacked on to the width
     			    		tr = new TilePosition(tl.getX() + buildingType.tileWidth() + 2, tl.getY());
-    			    		br = new TilePosition(tr.getX(), bl.getY());
     			    	}
     					
     					ArrayList<TilePosition> potentialReservedTiles = new ArrayList<TilePosition>();

@@ -7,7 +7,6 @@ public class MineralChunk {
 	private Unit mineral;
 	
 	private Game game;
-	private Player self;
 	
 	public MineralChunk(Unit mineral, Game game) {
 		this.mineral = mineral;
