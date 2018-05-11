@@ -1,6 +1,6 @@
 import bwapi.*;
 
-class BuildQueueChunk {
+public class BuildQueueChunk {
 	private Unit worker, building;
 	private UnitType type;
 	private TilePosition buildLocation;

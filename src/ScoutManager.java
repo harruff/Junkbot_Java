@@ -10,17 +10,13 @@ public class ScoutManager {
 	private ArrayList<Position> baseLocations = new ArrayList<Position>();
 	private int maxScouts;
 	private int mainScoutVector = 1;
-	private boolean scoutedMain = false;
-	private int a = 0;
-	
+	//private boolean scoutedMain = false;
 	private Game game;
-	private Player self;
 	
 	private TilePosition enemyBase = null, ourBase = null, ourNatExpo = null, enemyNatExpo = null;
 	
 	public void setGame(Game g) {
 		this.game = g;
-		this.self = game.self();
 	}
 	
     public void setOurInformation(TilePosition ob, TilePosition one) {
@@ -55,7 +51,7 @@ public class ScoutManager {
 				baseLocations.add(b.getPosition());
 			}
 		}
-		baseLocations.remove(ourNatExpo);
+		baseLocations.remove(ourNatExpo.toPosition());
 	}
 	
 	public ArrayList<ScoutChunk> getScoutChunks() {return scoutChunks;}
@@ -224,7 +220,7 @@ public class ScoutManager {
 						if (p.getDistance(BWTA.getNearestBaseLocation(enemyBase)) < enemyClosest) {
 							enemyClosest = (int) p.getDistance(BWTA.getNearestBaseLocation(enemyBase));
 							enemyNatExpo = p.toTilePosition();
-							baseLocations.remove(enemyNatExpo);
+							baseLocations.remove(enemyNatExpo.toPosition());
 						}
 					}
 				}

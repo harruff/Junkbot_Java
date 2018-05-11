@@ -6,7 +6,6 @@ public class MilitiaChunk {
 	private Unit target;
 	
 	private Game game;
-	private Player self;
 	
 	public MilitiaChunk(ArrayList<Unit> scvs, Unit target, Game game) {
 		this.scvs = scvs;

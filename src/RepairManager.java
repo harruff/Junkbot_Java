@@ -7,13 +7,10 @@ public class RepairManager {
 	private ArrayList<Unit> watchlist = new ArrayList<Unit>();
 	private ArrayList<Unit> queue = new ArrayList<Unit>();
 	private int maxRepairGuys;
-	
 	private Game game;
-	private Player self;
 	
 	public void setGame(Game g) {
 		this.game = g;
-		this.self = game.self();
 	}
 	
 	public RepairManager(Game g, int m, ArrayList<Unit> rr) {

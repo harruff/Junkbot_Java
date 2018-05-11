@@ -1,5 +1,4 @@
-import java.util.*;
-
+//import java.util.*;
 import bwapi.*;
 
 public class ProductionManager {
@@ -23,13 +22,17 @@ public class ProductionManager {
 	private int mechArmor = 0;
 
 	private TilePosition enemyBase = null, ourBase = null, ourNatExpo = null, enemyNatExpo = null;
-	private ArrayList<EnemyMemoryChunk> enemyMemory = new ArrayList<EnemyMemoryChunk>();
-	private boolean buildScanner = false, baseLanded = true, ebay = false, academy = false, refinery = false;
+	//private ArrayList<EnemyMemoryChunk> enemyMemory = new ArrayList<EnemyMemoryChunk>();
+	private boolean buildScanner = false; 
+	//private boolean baseLanded = true;
+	//private boolean ebay = false;
+	private boolean academy = false;
+	//private boolean refinery = false;
 	
 	private StringBuilder researchTime = new StringBuilder("Research Display:\n");
 	private StringBuilder research = new StringBuilder("\n");
 	
-	private int initialMinerals = 0;
+	//private int initialMinerals = 0;
 	
 	private int marineCap = 0;
 	
@@ -67,9 +70,9 @@ public class ProductionManager {
     	bm.setEnemyInformation(enemyBase, enemyNatExpo);
     }
     
-    public void updateEnemyMemory(ArrayList<EnemyMemoryChunk> em) {
+    /*public void updateEnemyMemory(ArrayList<EnemyMemoryChunk> em) {
     	enemyMemory = em;
-    }
+    }*/
     
 	public int getSurplusMinerals() {
 		return self.minerals() - reservedMinerals;
@@ -406,7 +409,7 @@ public class ProductionManager {
 		int numShops = 0;
 		int numRines = 0;
 		int numMedics = 0;
-		int numVults = 0;
+		//int numVults = 0;
 		int numTanks = 0;
 		int numGols = 0;
 		
@@ -414,7 +417,7 @@ public class ProductionManager {
 			if (u.getType() == UnitType.Terran_SCV) {numSCVs++;}
 			if (u.getType() == UnitType.Terran_Medic) {numMedics++;}
 			if (u.getType() == UnitType.Terran_Marine) {numRines++;}	
-			if (u.getType() == UnitType.Terran_Vulture) {numVults++;}
+			//if (u.getType() == UnitType.Terran_Vulture) {numVults++;}
 			if (u.getType() == UnitType.Terran_Siege_Tank_Tank_Mode || u.getType() == UnitType.Terran_Siege_Tank_Siege_Mode) {numTanks++;}
 			if (u.getType() == UnitType.Terran_Goliath) {numGols++;}
 			if (u.getType() == UnitType.Terran_Machine_Shop) {numShops++;}
@@ -495,7 +498,7 @@ public class ProductionManager {
 				//* 3. There are enough surplus minerals and gas
 				//* 4. We are RUSHING*********
 				if (a.getType() == UnitType.Terran_Engineering_Bay) {
-					ebay = true;
+					//ebay = true;
 					if (a.canUpgrade() && bio) {
 						if (getSurplusMinerals() >= 100 && getSurplusGas() >= 100) {
 							if (infantryArmor == 0) {

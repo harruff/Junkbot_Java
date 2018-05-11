@@ -6,8 +6,8 @@ import bwta.BWTA;
  * JUNKBOT
  * 
  * Author	:	Ben Harruff
- * Date		:	05/07/2018
- * Version	:	v1.0.1	
+ * Date		:	05/11/2018
+ * Version	:	v1.0.3	
  * 
  * Made with love
  * 
@@ -21,7 +21,6 @@ public class JunkbotController extends DefaultBWListener {
     private InformationManager infoManager = new InformationManager();
     private BuildOrderManager buildOrderManager = new BuildOrderManager();
     private ProductionManager prodManager = new ProductionManager(); 
-    
     private SquadManager squadManager = new SquadManager();
     private ScannerManager scanManager = new ScannerManager();
  
@@ -175,12 +174,12 @@ public class JunkbotController extends DefaultBWListener {
     	infoManager.onStart();
     	squadManager.setOurInformation(infoManager.getOurBase(), infoManager.getOurNatExpo());
     	squadManager.setChokes(infoManager.getChokepoints());
-    	scanManager.setOurInformation(infoManager.getOurBase(), infoManager.getOurNatExpo());
+    	//scanManager.setOurInformation(infoManager.getOurBase(), infoManager.getOurNatExpo());
     	prodManager.setOurInformation(infoManager.getOurBase(), infoManager.getOurNatExpo());
     	
     	if (infoManager.getEnemyBase() != null && infoManager.getEnemyNatExpo() != null) {
     		squadManager.setEnemyInformation(infoManager.getEnemyBase(), infoManager.getEnemyNatExpo());
-    		scanManager.setEnemyInformation(infoManager.getEnemyBase(), infoManager.getEnemyNatExpo());
+    		//scanManager.setEnemyInformation(infoManager.getEnemyBase(), infoManager.getEnemyNatExpo());
     		prodManager.setEnemyInformation(infoManager.getEnemyBase(), infoManager.getEnemyNatExpo());
     	}
     	
@@ -240,13 +239,13 @@ public class JunkbotController extends DefaultBWListener {
     	
     	if (infoManager.getEnemyBase() != null && infoManager.getEnemyNatExpo() != null) {
     		squadManager.setEnemyInformation(infoManager.getEnemyBase(), infoManager.getEnemyNatExpo());
-    		scanManager.setEnemyInformation(infoManager.getEnemyBase(), infoManager.getEnemyNatExpo());
+    		//scanManager.setEnemyInformation(infoManager.getEnemyBase(), infoManager.getEnemyNatExpo());
     		prodManager.setEnemyInformation(infoManager.getEnemyBase(), infoManager.getEnemyNatExpo());
     	}
     	
     	squadManager.updateEnemyMemory(infoManager.getEnemyMemory());
-    	scanManager.updateEnemyMemory(infoManager.getEnemyMemory());
-    	prodManager.updateEnemyMemory(infoManager.getEnemyMemory());
+    	//scanManager.updateEnemyMemory(infoManager.getEnemyMemory());
+    	//prodManager.updateEnemyMemory(infoManager.getEnemyMemory());
     	
         // BUILD ORDER!!!
     	prodManager.onFrameBase(); 

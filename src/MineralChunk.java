@@ -5,9 +5,7 @@ public class MineralChunk {
 	private int maxMinSCVs = 2;
 	private ArrayList<Unit> minSCVs = new ArrayList<Unit>();	
 	private Unit mineral;
-	
 	private Game game;
-	private Player self;
 	
 	public MineralChunk(Unit mineral, Game game) {
 		this.mineral = mineral;

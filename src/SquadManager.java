@@ -1,5 +1,4 @@
 import java.util.*;
-import java.text.*;
 import bwapi.*;
 import bwta.*;
 
@@ -8,21 +7,14 @@ public class SquadManager {
 	private Player self;
 	private ArrayList<EnemyMemoryChunk> enemyMemory = new ArrayList<EnemyMemoryChunk>();
 	private ArrayList<Chokepoint> chokes = new ArrayList<Chokepoint>();
-	
 	private RepairManager rm;
-
-	private DecimalFormat df = new DecimalFormat("0.00");
-	
-	//Can you see this?
-	
 	private TilePosition enemyBase = null, ourBase = null, ourNatExpo = null, enemyNatExpo = null;
-	private ArrayList<Position> enemyUnitPositions = null;
-	private ArrayList<Unit> 	enemyUnits= null;
+	//private ArrayList<Position> enemyUnitPositions = null;
+	//private ArrayList<Unit> 	enemyUnits= null;
 	private Position attackHere = null, retreatHere = null;
-	private int totalSelfSupply = 0, totalEnemySupply = 0;
+	//private int totalSelfSupply = 0, totalEnemySupply = 0;
 	private boolean goHard = false;
 	//private boolean rush = false;
-    
 	private ArrayList<Unit> rines = new ArrayList<Unit>();
 	private ArrayList<Unit> medics = new ArrayList<Unit>();
 	private ArrayList<Unit> fbats = new ArrayList<Unit>();
@@ -33,13 +25,12 @@ public class SquadManager {
 	private ArrayList<Unit> wraiths = new ArrayList<Unit>();
 	private ArrayList<Unit> valks = new ArrayList<Unit>();
 	private ArrayList<Unit> drops = new ArrayList<Unit>();
-	private ArrayList<Unit> cruisers = new ArrayList<Unit>();
-	
-	private ArrayList<Unit> scvs = new ArrayList<Unit>();
+	private ArrayList<Unit> cruisers = new ArrayList<Unit>();	
+	private ArrayList<Unit> scvs = new ArrayList<Unit>();	
 	
 	private ArrayList<Unit> squad = new ArrayList<Unit>();
 	private ArrayList<Unit> mines = new ArrayList<Unit>();
-	private ArrayList<Unit> tankSquad = new ArrayList<Unit>();
+	//private ArrayList<Unit> tankSquad = new ArrayList<Unit>();
 	
 	private boolean bio = false;
     
@@ -421,7 +412,7 @@ public class SquadManager {
 	    	Unit closestSunk = null;
 			Unit closestAirThreat = null;
 			Unit closestGroundThreat = null;
-			Unit closestCloakedUnit = null;
+			//Unit closestCloakedUnit = null;
 			Unit closestWorker = null;
 			Unit closestBuilding = null;
 			Unit attackThis = null;
@@ -434,12 +425,12 @@ public class SquadManager {
 			int attackThisDist = 50*32;
 			
 			boolean kite = true;
-			int sunkenCount = 0;
+			//int sunkenCount = 0;
 			boolean retreat = false;
 			int marinesClose = 0;
-			int medicsClose = 0;
-			int vultsClose = 0;
-			int golsClose = 0;
+			//int medicsClose = 0;
+			//int vultsClose = 0;
+			//int golsClose = 0;
 
 			ArrayList<Unit> closeUnits = new ArrayList<Unit>(u.getUnitsInRadius(maxDist));
 			Unit closeBunker = null;
@@ -447,12 +438,12 @@ public class SquadManager {
 			for (Unit o : closeUnits) {
 				if (o.getPlayer() == self) {
 					if (o.getType() == UnitType.Terran_Bunker) {closeBunker = o;}
-					else if (o.getType() == UnitType.Terran_Medic) {medicsClose++;}
+					//else if (o.getType() == UnitType.Terran_Medic) {medicsClose++;}
 					else if (o.getType() == UnitType.Terran_Marine) {marinesClose++;}
-					else if (o.getType() == UnitType.Terran_Vulture) {vultsClose++;}
-					else if (o.getType() == UnitType.Terran_Goliath) {golsClose++;}
+					//else if (o.getType() == UnitType.Terran_Vulture) {vultsClose++;}
+					//else if (o.getType() == UnitType.Terran_Goliath) {golsClose++;}
 				}
-				totalSelfSupply = medicsClose + marinesClose + vultsClose + golsClose;
+				//totalSelfSupply = medicsClose + marinesClose + vultsClose + golsClose;
 			}
 			
 			//find the closest enemy that isn't an egg, larva, or overlord
@@ -461,7 +452,7 @@ public class SquadManager {
 					
 					//1st Priority - Lurkers
 					if (e.getType() == UnitType.Terran_Bunker || e.getType() == UnitType.Zerg_Sunken_Colony || e.getType() == UnitType.Protoss_Photon_Cannon || (e.getType() == UnitType.Zerg_Lurker && e.isBurrowed() && !e.isDetected())) {
-						sunkenCount++;
+						//sunkenCount++;
 						if (closestSunkDist > u.getDistance(e.getPosition())) {
 							closestSunkDist = u.getDistance(e.getPosition());
 							closestSunk = e;

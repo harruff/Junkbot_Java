@@ -30,8 +30,6 @@ public class InformationManager {
 		this.self = game.self();
 	}
 	
-	private int enemyUnitsKilled = 0;
-	
 	//Getters make Java's world go round.
 	public TilePosition getOurBase() 				{return ourBase;}
 	public Position 	getOurBasePosition() 		{return ourBasePosition;}
