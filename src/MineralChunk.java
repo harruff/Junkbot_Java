@@ -31,10 +31,10 @@ public class MineralChunk {
 		minSCVs.remove(s);
 	}
 	
-	public void debug() {
+	public void debug(int r, Color c, boolean fill) {
 		game.drawTextMap(mineral.getPosition(), String.valueOf(minSCVs.size()));
 		for (Unit s : minSCVs) {
-			game.drawCircleMap(s.getPosition(), 12, Color.Cyan);
+			game.drawCircleMap(s.getPosition(), r, c, fill);
 			game.drawLineMap(s.getPosition(), mineral.getPosition(), Color.White);
 		}
 	}

@@ -211,7 +211,9 @@ public class SquadManager {
 
     	if (rm != null) {
         	rm.onFrame();
-        	rm.debug();
+        	Color color_rep = Color.Orange;
+        	int radius = 12;
+        	rm.debug(radius, color_rep, false);
     	}
     	
     	mines.clear();

@@ -352,103 +352,73 @@ public class Base {
 		}
 	}
 	
-	public void onFrame() {
-		
-		findStraySCVs();
-		
-		//We don't need militia yet
-		militiaNeeded = 0;
-		
-		//Update enemy list and militia required
-		updateEnemies();
-		game.drawTextScreen(5, 5, "enemies: " + String.valueOf(enemies.size()));
-		
-		//Send enemies to MilitiaManager
-		/*
-		if (mm != null) {
-			mm.setEnemies(enemies);
-		}
-		*/
-		
-		//Based on militiaNeeded, determine how to pull SCVs
-		if (militiaNeeded > 0 && mm != null) {		
-			ArrayList<Unit> toAddToMilitia = new ArrayList<Unit>();
-			for (int i = 0; i < militiaNeeded; i++) {
-				Unit toRemove = null;
-				
-				//Pull from mineral line first
-				for (MineralChunk mc : mineralChunks) {
-					for (Unit mc_scv : mc.getMinSCVs()) {
-						toRemove = mc_scv;
-						break;
-					}
-					if (toRemove != null) {
-						mc.removeMinSCV(toRemove);
-						break;
-					}
+	public void addSCVsToMilitia(int n) {
+		ArrayList<Unit> toAddToMilitia = new ArrayList<Unit>();
+		for (int i = 0; i < n; i++) {
+			Unit toRemove = null;
+			
+			//Pull from mineral line first
+			for (MineralChunk mc : mineralChunks) {
+				for (Unit mc_scv : mc.getMinSCVs()) {
+					toRemove = mc_scv;
+					break;
 				}
-				
-				//Pull from gas line second if needed
-				if (toRemove == null) {
-					for (GeyserChunk gc : geyserChunks) {
-						for (Unit gc_scv : gc.getGasSCVs()) {
-							toRemove = gc_scv;
-							break;
-						}
-						if (toRemove != null) {
-							gc.removeGasSCV(toRemove);
-							break;
-						}
-					}
-				}
-				
-				//Pull from repair manager third if needed
-				if (toRemove == null && rm != null) {
-					for (Unit rm_scv : rm.getRepairmen()) {
-						toRemove = rm_scv;
-						break;
-					}
-					if (toRemove != null) {
-						rm.removeRepairman(toRemove);
-						break;
-					}
-				}
-				
-				//IF we found an scv to draft, add it to the militia
-				
 				if (toRemove != null) {
-					toAddToMilitia.add(toRemove);
-					//Try to add militiaChunks
-					for (Unit enemy : enemies) {
-						boolean alreadyAdded = false;
-						for (MilitiaChunk mc : mm.getMilitiaChunks()) {
-							if (mc.getTarget().getID() == enemy.getID()) {
-								alreadyAdded = true;
-								break;
-							}
-						}
-						if (!alreadyAdded) {
-							mm.addMilitiaChunk(new MilitiaChunk(toAddToMilitia, enemy, game));
+					mc.removeMinSCV(toRemove);
+					break;
+				}
+			}
+			
+			//Pull from gas line second if needed
+			if (toRemove == null) {
+				for (GeyserChunk gc : geyserChunks) {
+					for (Unit gc_scv : gc.getGasSCVs()) {
+						toRemove = gc_scv;
+						break;
+					}
+					if (toRemove != null) {
+						gc.removeGasSCV(toRemove);
+						break;
+					}
+				}
+			}
+			
+			//Pull from repair manager third if needed
+			if (toRemove == null && rm != null) {
+				for (Unit rm_scv : rm.getRepairmen()) {
+					toRemove = rm_scv;
+					break;
+				}
+				if (toRemove != null) {
+					rm.removeRepairman(toRemove);
+					break;
+				}
+			}
+			
+			//IF we found an scv to draft, add it to the militia
+			
+			if (toRemove != null) {
+				toAddToMilitia.add(toRemove);
+				//Try to add militiaChunks
+				for (Unit enemy : enemies) {
+					boolean alreadyAdded = false;
+					for (MilitiaChunk mc : mm.getMilitiaChunks()) {
+						if (mc.getTarget().getID() == enemy.getID()) {
+							alreadyAdded = true;
+							break;
 						}
 					}
-				} else {
-					System.out.println("Could not find scv to add to militia");
+					if (!alreadyAdded) {
+						mm.addMilitiaChunk(new MilitiaChunk(toAddToMilitia, enemy, game));
+					}
 				}
-				
+			} else {
+				System.out.println("Could not find scv to add to militia");
 			}	
-		}
-		
-		//Do MilitiaManager onFrame()
-		if (mm != null) {
-			mm.onFrame();
-		}
-		
-		
-		//Update building list
-		buildings.clear();
-		incompBuildings.clear();
-		
-		//Buildings & SCVs
+		}	
+	}
+	
+	public void findBuildings() {
 		for (Unit u : game.getAllUnits()) {
 			if (u.getPlayer() == self && (u.getType().isBuilding() || u.getType() == UnitType.Terran_SCV) && u.getDistance(cc) <= 10*32) {
 				if (u.isCompleted()) {
@@ -462,92 +432,137 @@ public class Base {
 		}
 		//game.drawTextScreen(10, 10, String.valueOf(incompBuildings.size()));
 		buildings.add(cc);
+	}
+	
+	public void clearBuildings() {
+		buildings.clear();
+		incompBuildings.clear();
+	}
+	
+	public void manageBaseMilitia() {
+		//Based on militiaNeeded, determine how to pull SCVs
+		//mm.setEnemies(enemies);
+		if (militiaNeeded > 0) {		
+			addSCVsToMilitia(militiaNeeded);
+		}
+		mm.onFrame();
+	}
+	
+	public void manageBaseRepair() {
+		repairmen = rm.getRepairmen();
+		rm.setWatchlist(buildings);
+		rm.onFrame();
 		
-		//Send building list to repairManager
-		if (rm != null) {
-			repairmen = rm.getRepairmen();
-			rm.setWatchlist(buildings);
-			rm.onFrame();
+		//Repairmen micro!
+		if (rm.getRepairmen().size() > 0) {
+			for (RepairChunk rc : rm.getRepairChunks()) {
+				Unit r = rc.getRepairman();
+				if (!r.isRepairing()){
+					if (r.isBeingHealed() && rc.getRepairTarget().getType() != UnitType.Terran_SCV) {
+						if (!r.isHoldingPosition()) {
+							r.holdPosition();
+						}
+					} else if (!r.isBeingHealed()) {
+						r.repair(rc.getRepairTarget());
+					}
+				}
+			}	
 			
-			//Repairmen micro!
-			if (rm.getRepairmen().size() > 0) {
-				for (RepairChunk rc : rm.getRepairChunks()) {
-					Unit r = rc.getRepairman();
-					if (!r.isRepairing()){
-						if (r.isBeingHealed() && rc.getRepairTarget().getType() != UnitType.Terran_SCV) {
-							if (!r.isHoldingPosition()) {
-								r.holdPosition();
-							}
-						} else if (!r.isBeingHealed()) {
-							r.repair(rc.getRepairTarget());
+			//IF a builder gets killed while building AND there are no repair chunks, attempt to finish the building
+			if (rm.getRepairChunks().size() == 0) {
+				for (Unit ib : incompBuildings) {
+					//Check to see if there is a builder still near this building -> is still being built 
+					boolean stillBeingBuilt = false;
+					for (Unit builder : builders) {
+						if (ib.getDistance(builder) < 2*32) {
+							stillBeingBuilt = true;
 						}
 					}
-				}	
-				
-				//IF a builder gets killed while building AND there are no repair chunks, attempt to finish the building
-				if (rm.getRepairChunks().size() == 0) {
-					for (Unit ib : incompBuildings) {
-						//Check to see if there is a builder still near this building -> is still being built 
-						boolean stillBeingBuilt = false;
-						for (Unit builder : builders) {
-							if (ib.getDistance(builder) < 2*32) {
-								stillBeingBuilt = true;
-							}
-						}
-						if (!stillBeingBuilt) {
-							for (Unit r : repairmen) {
-								if (r.getOrderTarget().getID() != ib.getID()) {
-									r.rightClick(ib);
-									break;
-								}
-							}
-						}
-					}
-					
-					//IF a repairman has nothing to repair, start gathering minerals
-					for (Unit s : repairmen) {
-						if (!s.isRepairing()) {
-							for (Unit m : minerals) {
-								if (!s.isBeingHealed()) {       
-									if (!s.isGatheringMinerals()) {
-							            //if a mineral patch was found, send the worker to gather it
-							            s.gather(m, false);  
-									}
-						        } else {
-						        	if (!s.isHoldingPosition()) {
-						        		s.holdPosition();
-						        	}
-						        }
+					if (!stillBeingBuilt) {
+						for (Unit r : repairmen) {
+							if (r.getOrderTarget().getID() != ib.getID()) {
+								r.rightClick(ib);
 								break;
-							}	
+							}
 						}
-					}		
-				}	
+					}
+				}
+				
+				//IF a repairman has nothing to repair, start gathering minerals
+				for (Unit s : repairmen) {
+					if (!s.isRepairing()) {
+						for (Unit m : minerals) {
+							if (!s.isBeingHealed()) {       
+								if (!s.isGatheringMinerals()) {
+						            //if a mineral patch was found, send the worker to gather it
+						            s.gather(m, false);  
+								}
+					        } else {
+					        	if (!s.isHoldingPosition()) {
+					        		s.holdPosition();
+					        	}
+					        }
+							break;
+						}	
+					}
+				}		
 			}	
 		}
+	}
+	
+	public void onFrame() {
 		
-
-		//Make sure repairmen are repairing
+		//Bring unassigned scvs back to the base
+		findStraySCVs();
 		
+		//We don't need militia yet
+		militiaNeeded = 0;
 		
+		//Update enemy list and militia required
+		updateEnemies();
+		//game.drawTextScreen(5, 5, "enemies: " + String.valueOf(enemies.size()));
+		
+		//Manage militia
+		if (mm != null) {
+			manageBaseMilitia();
+		}
+		
+		//Clear Building Arrays
+		clearBuildings();
+		
+		//Populate Building Arrays
+		findBuildings();
+		
+		//Manage repair
+		if (rm != null) {
+			manageBaseRepair();
+		}				
 	}
 	
 	public void debug() {
+		Color color_min = Color.Cyan;
+		Color color_gas = Color.Green;
+		Color color_bui = Color.Yellow;
+		Color color_rep = Color.Orange;
+		Color color_mil = Color.Red;
+		boolean fill = false;
+		int radius = 12;
+		
 		for (GeyserChunk gc : geyserChunks) {
-			gc.debug();
+			gc.debug(radius, color_gas, fill);
 		}
 		for (MineralChunk mc : mineralChunks) {
-			mc.debug();
+			mc.debug(radius, color_min, fill);
 		}
 		for (Unit builder : builders) {
-			game.drawCircleMap(builder.getPosition(), 12, Color.Yellow);
+			game.drawCircleMap(builder.getPosition(), radius, color_bui, fill);
 			game.drawLineMap(builder.getPosition(), builder.getOrderTargetPosition(), Color.White);
 		}
 		if (rm != null) {
-			rm.debug();
+			rm.debug(radius, color_rep, fill);
 		}
 		if (mm != null) {
-			mm.debug();
+			mm.debug(radius, color_mil, fill);
 		}
 	}
 }

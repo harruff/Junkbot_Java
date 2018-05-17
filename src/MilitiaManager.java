@@ -121,9 +121,9 @@ public class MilitiaManager {
 		}
 	}
 	
-	public void debug() {
+	public void debug(int r, Color c, boolean f) {
 		for (MilitiaChunk mc : militiaChunks) {
-			mc.debug();
+			mc.debug(r, c, f);
 		}
 	}
 }

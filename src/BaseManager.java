@@ -390,6 +390,7 @@ public class BaseManager {
 	
 	public void onFrame() {	
 		debug();
+		
 		minSCVTotal = 0;
 		gasSCVTotal = 0;
 		buildersTotal = 0;
