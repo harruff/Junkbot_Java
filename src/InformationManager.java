@@ -30,8 +30,6 @@ public class InformationManager {
 		this.self = game.self();
 	}
 	
-	//private int enemyUnitsKilled = 0;
-	
 	//Getters make Java's world go round.
 	public TilePosition getOurBase() 				{return ourBase;}
 	public Position 	getOurBasePosition() 		{return ourBasePosition;}
@@ -78,38 +76,6 @@ public class InformationManager {
     	return quadrant;
     }
     
-    public void buildingGridOverlay() {
-    	
-    	 /*       WIP
-    	for (Unit u : game.self().getUnits()) {
-			// if this unit is in fact a building
-			if (u.getType().isBuilding()) {
-				// check if we have it's position in memory and add it if we don't
-				if (!myBuildings.contains(u.getPosition())) {
-					myBuildings.add(u.getPosition());					
-				}
-				
-				int u_w = u.getType().width();
-				int u_h = u.getType().height();
-				
-				
-			}
-		}
-		*/
-    	
-    	/* Lags the game to a crawl... for some reason
-    	for (int x = 0; x < w; x++) {
-    		for (int y = 0; y < h; y++) {
-    			Position point = new Position(x, y);
-    			if (x%4 == 0 && y%4 == 0) {
-    				game.drawCircleMap(point, 4, Color.Red);
-    			} else {
-    				game.drawCircleMap(point, 4, Color.Grey);
-    			}
-    		}
-    	} */
-    }
-    
     public void debugOverlay() {
         //NUMBERS
         info.append("FPS:\n")
@@ -121,15 +87,24 @@ public class InformationManager {
         
         num_info.append(game.getFPS()).append("\n")
         .append(game.getAPM()).append("\n");
-        if (seconds > 60) {
-        	if (seconds % 60 < 10) {
-        		num_info.append(Math.round(seconds/60)).append(":").append("0").append(seconds % 60).append("\n");
-        	} else {
-            	num_info.append(Math.round(seconds/60)).append(":").append(seconds % 60).append("\n");
-        	}
-        } else {
-        	num_info.append(seconds).append("\n");
+        
+        //Tens of Minutes
+        if (seconds < 600) {
+        	num_info.append("0");
         }
+        //Minutes
+        if (seconds > 60) {
+        	num_info.append(Math.round(seconds/60)).append(":");
+        } else {
+        	num_info.append("0:");
+        }
+        
+        //Seconds
+        if (seconds % 60 < 10) {
+    		num_info.append("0").append(seconds % 60).append("\n");
+    	} else {
+        	num_info.append(seconds % 60).append("\n");
+    	}
         num_info.append("\n")
         .append(game.mapFileName()).append("\n")
         .append(game.mapWidth() + " by " + game.mapHeight());
@@ -205,74 +180,81 @@ public class InformationManager {
 				}
 			}			
 		}	
+		
 		//Find all chokepoints on the map, and determine which one to build a bunker at			
 		for (Chokepoint c : BWTA.getChokepoints()) {
 			chokes.add(c);
 		}
 	}
 	
-	public void onFrame() {		
-		int pdiam = 16;
-		game.drawCircleMap(ourBasePosition, pdiam, Color.Cyan);
+	public void drawChokes(int r, Color color) {
+		for (Chokepoint c : chokes) {
+        	game.drawCircleMap(c.getCenter(), r, color);
+        }
+	}
+	
+	public void drawBases(int r, Color color) {
+		game.drawCircleMap(ourBasePosition, r, color);
         game.drawTextMap(ourBasePosition, "ourBase");
-		game.drawCircleMap(ourNatExpoPosition, pdiam, Color.Cyan);
+		game.drawCircleMap(ourNatExpoPosition, r, color);
         game.drawTextMap(ourNatExpoPosition, "ourNatExpo");
         
         if (enemyBasePosition != null) {
-            game.drawCircleMap(enemyBasePosition, pdiam, Color.Red);
+            game.drawCircleMap(enemyBasePosition, r, color);
             game.drawTextMap(enemyBasePosition, "enemyBase");
         }
         if (enemyNatExpoPosition != null) {
-    		game.drawCircleMap(enemyNatExpoPosition, pdiam, Color.Red);
+    		game.drawCircleMap(enemyNatExpoPosition, r, color);
             game.drawTextMap(enemyNatExpoPosition, "enemyNatExpo");
         }
-        
-        for (Chokepoint c : chokes) {
-        	game.drawCircleMap(c.getCenter(), 4*32, Color.White);
-        }
-        
-        info = new StringBuilder("Info:\n");
+	}
+	
+	public void determineSeconds() {
+		seconds = (game.getFrameCount() - game.getLatencyFrames())/50;
+	}
+	
+	public void clearArrays() {
+		info = new StringBuilder("Info:\n");
         num_info = new StringBuilder("\n");
-        
-		seconds = (game.getFrameCount() - game.getLatencyFrames())/50*(5/3);
-        
-        debugOverlay();
-        buildingGridOverlay();
-		
-		boolean newUnit = true;
-		
-		enemyUnits.clear();
-		
+        enemyUnits.clear();
+	}
+	
+	public void findEnemies() {
 		for (Unit u : game.enemy().getUnits()) {
 			enemyUnits.add(u);
 		}
-		
-		//game.drawTextScreen(300, 315, String.valueOf(enemyUnits.size()));
-				
+	}
+	
+	public void addNewMemory() {
+		boolean newUnit = true;
 		for (Unit u : enemyUnits) {
 			Position lastKnownPosition = null;
 			
+			//Last known position is where it currently is
 			if (u.isVisible()) {
 				lastKnownPosition = u.getPosition();
 			}
 
-			//Update every unit that is visible if it matches with our memory
+			//Try to find the unit that is visible in our memory
 			for (EnemyMemoryChunk emc : enemyMemory) {
 				//IF there is an enemy unit that matches with one in our memory
 				if (emc.getUnit() == u) {
-					//IF VISIBLE
+					//IF ENEMY FROM MEMORY IS VISIBLE
 					if (u.isVisible()) {
-						//Update it's position to the one that it's in
+						//Update it's position in our memory to the one that it's currently in
 						if (emc.getPosition() != u.getPosition() && u.getPosition() != null && u.getPosition().getX() != 0)  {
 							emc.setPosition(u.getPosition());
 						}
-						lastKnownPosition = u.getPosition();
+						//Last known position is where it currently is
+						//lastKnownPosition = u.getPosition();
 					}
-					//IF NOT VISIBLE
+					//IF ENEMY FROM MEMORY IS NOT VISIBLE
 					else if (!u.isVisible()){
-						//Retrieve the location of it from our memory
+						//Last known position is the one from our memory
 						lastKnownPosition = emc.getPosition();
 					}
+					//We found the unit in memory, no need to continue iterating
+					break;
 				}	
 			}
 			
@@ -288,43 +270,82 @@ public class InformationManager {
 						}
 					}
 					if (newUnit) {
-						enemyMemory.add(new EnemyMemoryChunk (u.getPosition(), u, u.getType()));
+						enemyMemory.add(new EnemyMemoryChunk (lastKnownPosition, u, u.getType()));
 					}
 					newUnit = true;
 				}	
 			}
 		}
+	}
+	
+	public void removeOldMemory() {
 		
-		EnemyMemoryChunk toRemove = null;
+		ArrayList<EnemyMemoryChunk> toRemove = new ArrayList<EnemyMemoryChunk>();
 		
 		for (EnemyMemoryChunk emc : enemyMemory) {
 			Position p = emc.getPosition();
 			Unit emu = emc.getUnit();
-			UnitType t = emc.getType();
-			Position tl = new Position(p.getX() - t.width()/2, p.getY() - t.height()/2);
-			Position br = new Position(p.getX() + t.width()/2, p.getY() + t.height()/2);
-			
-			//debug
-			if (t.isBuilding()) {
-				game.drawBoxMap(tl, br, Color.White);
-			} else if (t.isWorker()) {
-				game.drawBoxMap(tl, br, Color.Yellow);
-			} else {
-				game.drawBoxMap(tl, br, Color.Red);
-			}
-			game.drawTextMap(tl, emc.toString());
 
 			//TilePosition corresponding to our remembered Position
 			TilePosition p_tp = new TilePosition(p.getX()/32, p.getY()/32);
 			
-			//IF that tile is currently visible to us, remove the memory chunk
+			//IF that tile is currently visible to us and the unit doesn't exist, remove the memory chunk
 			if (game.isVisible(p_tp) && !emu.exists()) {
-				toRemove = emc;
+				toRemove.add(emc);
 			}
 		}
-		//remove the memory chunk if there is one to remove
-		if (toRemove != null) {
-			enemyMemory.remove(toRemove);
+		
+		//Remove all memory chunks from memory that have been designated to be removed
+		for (EnemyMemoryChunk emc : toRemove) {
+			enemyMemory.remove(emc);
 		}
+	}
+	
+	public void drawMemory() {
+		for (EnemyMemoryChunk emc : enemyMemory) {
+			Position p = emc.getPosition();
+			UnitType t = emc.getType();
+			Color t_color;
+			Position tl = new Position(p.getX() - t.width()/2, p.getY() - t.height()/2);
+			Position br = new Position(p.getX() + t.width()/2, p.getY() + t.height()/2);
+			
+			//BUILDINGS -> WHITE
+			if (t.isBuilding()) {
+				t_color = Color.White;
+			} 
+			//WORKERS -> YELLOW
+			else if (t.isWorker()) {
+				t_color = Color.Yellow;
+			} 
+			//ELSE -> RED
+			else {
+				t_color = Color.Red;
+			}
+			
+			game.drawBoxMap(tl, br, t_color);
+			game.drawTextMap(tl, emc.toString());
+		}
+	}
+	
+	public void onFrame() {		
+        determineSeconds();
+		
+		int base_radius = 16;
+		int choke_radius = 4*32;
+		Color base_color = Color.Grey;
+		Color choke_color = Color.White;
+		
+		drawBases(base_radius, base_color);
+        drawChokes(choke_radius, choke_color);
+        
+        clearArrays();
+        
+        debugOverlay();
+		
+		findEnemies();
+		
+		addNewMemory();		
+		removeOldMemory();
+		drawMemory();
 	}
 }
