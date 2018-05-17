@@ -13,15 +13,10 @@ public class InformationManager {
 	private ArrayList<TilePosition> possibleBases = new ArrayList<TilePosition>();
 	private ArrayList<TilePosition> possibleExpos = new ArrayList<TilePosition>();
 	private ArrayList<Chokepoint> chokes = new ArrayList<Chokepoint>();
-	
 	private ArrayList<EnemyMemoryChunk> enemyMemory = new ArrayList<EnemyMemoryChunk>();
 	private ArrayList<Unit> enemyUnits = new ArrayList<Unit>();
-	
-	private StringBuilder info = new StringBuilder("Info:\n"),
-			num_info = new StringBuilder("\n");
-	
-	private int seconds = 0;
-			
+	private StringBuilder info = new StringBuilder("Info:\n"), num_info = new StringBuilder("\n");
+	private int seconds = 0;	
 	private Game game;
 	private Player self;
 	
