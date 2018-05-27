@@ -363,47 +363,14 @@ public class Base {
 				for (Unit mc_scv : mc.getMinSCVs()) {
 					toRemove = mc_scv;
 					break;
-          
-	public void onFrame() {
-		
-		findStraySCVs();
-		
-		//We don't need militia yet
-		militiaNeeded = 0;
-		
-		//Update enemy list and militia required
-		updateEnemies();
-		game.drawTextScreen(5, 5, "enemies: " + String.valueOf(enemies.size()));
-		
-		//Send enemies to MilitiaManager
-		/*if (mm != null) {
-			mm.setEnemies(enemies);
-		}*/
-		
-		//Based on militiaNeeded, determine how to pull SCVs
-		if (militiaNeeded > 0 && mm != null) {		
-			ArrayList<Unit> toAddToMilitia = new ArrayList<Unit>();
-			for (int i = 0; i < militiaNeeded; i++) {
-				Unit toRemove = null;
-				
-				//Pull from mineral line first
-				for (MineralChunk mc : mineralChunks) {
-					for (Unit mc_scv : mc.getMinSCVs()) {
-						toRemove = mc_scv;
-						break;
-					}
-					if (toRemove != null) {
-						mc.removeMinSCV(toRemove);
-						break;
-					}
-
 				}
 				if (toRemove != null) {
 					mc.removeMinSCV(toRemove);
 					break;
 				}
+
 			}
-			
+		
 			//Pull from gas line second if needed
 			if (toRemove == null) {
 				for (GeyserChunk gc : geyserChunks) {
@@ -431,7 +398,6 @@ public class Base {
 			}
 			
 			//IF we found an scv to draft, add it to the militia
-			
 			if (toRemove != null) {
 				toAddToMilitia.add(toRemove);
 				//Try to add militiaChunks
@@ -449,8 +415,8 @@ public class Base {
 				}
 			} else {
 				System.out.println("Could not find scv to add to militia");
-			}	
-		}	
+			}
+		}
 	}
 	
 	public void findBuildings() {

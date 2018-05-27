@@ -18,7 +18,7 @@ public class MilitiaManager {
 		//this.self = game.self();
 	}
 	
-	public MilitiaManager(Game g) {
+	public MilitiaManager(/*Game g*/) {
 		//this.game = g;
 	}
 	/*
