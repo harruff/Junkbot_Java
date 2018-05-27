@@ -32,7 +32,7 @@ public class Base {
 		this.game = g;
 		this.self = game.self();
 		this.cc = cc;
-		mm = new MilitiaManager(game);
+		mm = new MilitiaManager(/*game*/);
 		updateMineralPatches();
 		determineSCVSaturation();
 	}
@@ -352,6 +352,7 @@ public class Base {
 		}
 	}
 	
+
 	public void addSCVsToMilitia(int n) {
 		ArrayList<Unit> toAddToMilitia = new ArrayList<Unit>();
 		for (int i = 0; i < n; i++) {
@@ -362,6 +363,40 @@ public class Base {
 				for (Unit mc_scv : mc.getMinSCVs()) {
 					toRemove = mc_scv;
 					break;
+          
+	public void onFrame() {
+		
+		findStraySCVs();
+		
+		//We don't need militia yet
+		militiaNeeded = 0;
+		
+		//Update enemy list and militia required
+		updateEnemies();
+		game.drawTextScreen(5, 5, "enemies: " + String.valueOf(enemies.size()));
+		
+		//Send enemies to MilitiaManager
+		/*if (mm != null) {
+			mm.setEnemies(enemies);
+		}*/
+		
+		//Based on militiaNeeded, determine how to pull SCVs
+		if (militiaNeeded > 0 && mm != null) {		
+			ArrayList<Unit> toAddToMilitia = new ArrayList<Unit>();
+			for (int i = 0; i < militiaNeeded; i++) {
+				Unit toRemove = null;
+				
+				//Pull from mineral line first
+				for (MineralChunk mc : mineralChunks) {
+					for (Unit mc_scv : mc.getMinSCVs()) {
+						toRemove = mc_scv;
+						break;
+					}
+					if (toRemove != null) {
+						mc.removeMinSCV(toRemove);
+						break;
+					}
+
 				}
 				if (toRemove != null) {
 					mc.removeMinSCV(toRemove);

@@ -22,17 +22,21 @@ public class MilitiaManager {
 		//this.game = g;
 	}
 	/*
-    public void setOurInformation(TilePosition ob, TilePosition one) {
-		ourBase = ob;
-		ourNatExpo = one;
+  public void setOurInformation(TilePosition ob, TilePosition one) {
+
+
+  /*public void setOurInformation(TilePosition ob, TilePosition one) {
+    ourBase = ob;
+    ourNatExpo = one;
 	}
     
     public void setEnemies(ArrayList<Unit> e) {
     	enemies = e;
     }
-    */
-    public ArrayList<MilitiaChunk> getMilitiaChunks() {return militiaChunks;}
-    public void addMilitiaChunk(MilitiaChunk mc) {militiaChunks.add(mc);}
+    }*/
+    
+  public ArrayList<MilitiaChunk> getMilitiaChunks() {return militiaChunks;}
+  public void addMilitiaChunk(MilitiaChunk mc) {militiaChunks.add(mc);}
 	public void removeMilitiaChunk(MilitiaChunk mc) {militiaChunks.remove(mc);}
     
 	//public ArrayList<Unit> getMilitia() {return militia;}
@@ -41,7 +45,7 @@ public class MilitiaManager {
 	
 	/*
 	public void setMilitiaNeeded(int n) {
-		militiaNeeded = n;
+		//militiaNeeded = n;
 	}
 	*/
 	

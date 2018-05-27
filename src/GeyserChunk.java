@@ -6,7 +6,6 @@ public class GeyserChunk {
 	private ArrayList<Unit> gasSCVs = new ArrayList<Unit>();	
 	private Unit geyser;
 	private boolean isRefinery = false;
-	
 	private Game game;
 	//private Player self;
 	

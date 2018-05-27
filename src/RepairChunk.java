@@ -4,7 +4,6 @@ import bwapi.*;
 public class RepairChunk {
 	private Unit repairman;
 	private Unit repairTarget;
-	
 	private Game game;
 	
 	public RepairChunk(Unit scv, Unit target, Game game) {

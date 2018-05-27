@@ -7,9 +7,8 @@ public class SquadManager {
 	private Player self;
 	private ArrayList<EnemyMemoryChunk> enemyMemory = new ArrayList<EnemyMemoryChunk>();
 	private ArrayList<Chokepoint> chokes = new ArrayList<Chokepoint>();
-	
 	private RepairManager rm;
-	
+
 	private TilePosition enemyBase = null, ourBase = null, ourNatExpo = null, enemyNatExpo = null;
 	//private ArrayList<Position> enemyUnitPositions = null;
 	//private ArrayList<Unit> 	enemyUnits= null;
@@ -17,7 +16,6 @@ public class SquadManager {
 	//private int totalSelfSupply = 0, totalEnemySupply = 0;
 	private boolean goHard = false;
 	//private boolean rush = false;
-    
 	private ArrayList<Unit> rines = new ArrayList<Unit>();
 	private ArrayList<Unit> medics = new ArrayList<Unit>();
 	private ArrayList<Unit> fbats = new ArrayList<Unit>();
@@ -28,9 +26,8 @@ public class SquadManager {
 	private ArrayList<Unit> wraiths = new ArrayList<Unit>();
 	private ArrayList<Unit> valks = new ArrayList<Unit>();
 	private ArrayList<Unit> drops = new ArrayList<Unit>();
-	private ArrayList<Unit> cruisers = new ArrayList<Unit>();
-	
-	private ArrayList<Unit> scvs = new ArrayList<Unit>();
+	private ArrayList<Unit> cruisers = new ArrayList<Unit>();	
+	private ArrayList<Unit> scvs = new ArrayList<Unit>();	
 	
 	private ArrayList<Unit> squad = new ArrayList<Unit>();
 	private ArrayList<Unit> mines = new ArrayList<Unit>();

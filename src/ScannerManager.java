@@ -9,7 +9,6 @@ public class ScannerManager {
 	
 	//private TilePosition enemyBase = null, ourBase = null, ourNatExpo = null, enemyNatExpo = null;
 	//private ArrayList<EnemyMemoryChunk> enemyMemory = new ArrayList<EnemyMemoryChunk>();
-	
 	//private int lastScanFrame = 0;
 	
 	public void setGame(Game g) {

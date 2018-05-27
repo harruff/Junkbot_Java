@@ -6,8 +6,8 @@ import bwta.BWTA;
  * JUNKBOT
  * 
  * Author	:	Ben Harruff
- * Date		:	05/07/2018
- * Version	:	v1.0.1	
+ * Date		:	05/11/2018
+ * Version	:	v1.0.3	
  * 
  * Made with love
  * 
@@ -21,7 +21,6 @@ public class JunkbotController extends DefaultBWListener {
     private InformationManager infoManager = new InformationManager();
     private BuildOrderManager buildOrderManager = new BuildOrderManager();
     private ProductionManager prodManager = new ProductionManager(); 
-    
     private SquadManager squadManager = new SquadManager();
     private ScannerManager scanManager = new ScannerManager();
  

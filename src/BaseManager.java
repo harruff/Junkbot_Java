@@ -663,13 +663,14 @@ public class BaseManager {
 					}
 				}
 			}
-			
+      
 			/*
 			//BUILDER Manager
 			for (Unit bu : b.getBuilders()) {				
 		    	// if it's a idle builder, send it to the closest mineral line by default!***********************************************
 			}
 			*/	
+
 		}
 	
 		//do base onFrame()

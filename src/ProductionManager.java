@@ -31,7 +31,6 @@ public class ProductionManager {
 	
 	private StringBuilder researchTime = new StringBuilder("Research Display:\n");
 	private StringBuilder research = new StringBuilder("\n");
-	
 	private int marineCap = 0;
 	
 	public void debug() {

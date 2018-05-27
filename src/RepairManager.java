@@ -7,7 +7,6 @@ public class RepairManager {
 	private ArrayList<Unit> watchlist = new ArrayList<Unit>();
 	private ArrayList<Unit> queue = new ArrayList<Unit>();
 	private int maxRepairGuys;
-	
 	private Game game;
 	
 	public void setGame(Game g) {
