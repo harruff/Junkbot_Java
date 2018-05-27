@@ -27,6 +27,7 @@ public class BaseManager {
 	ArrayList<Unit> allMinSCVs = new ArrayList<Unit>();
 	
 	private Game game;
+	//private Player self;
 	
 	private ArrayList<TilePosition> reservedTiles = new ArrayList<TilePosition>();
 	private TilePosition enemyBase = null, ourBase = null, ourNatExpo = null, enemyNatExpo = null;
@@ -36,6 +37,7 @@ public class BaseManager {
 	
 	public void setGame(Game g) {
 		this.game = g;
+		//this.self = game.self();
 	}
 	
     public void setOurInformation(TilePosition ob, TilePosition one) {
@@ -388,6 +390,7 @@ public class BaseManager {
 	
 	public void onFrame() {	
 		debug();
+		
 		minSCVTotal = 0;
 		gasSCVTotal = 0;
 		buildersTotal = 0;
@@ -617,6 +620,7 @@ public class BaseManager {
 				}
 			}
 			for (Unit toAdd : allMinSCVs) {
+				//boolean added = false;
 				//resetSCV
 				toAdd.stop();
 				addMinSCV(toAdd);
@@ -659,7 +663,14 @@ public class BaseManager {
 					}
 				}
 			}
-	
+      
+			/*
+			//BUILDER Manager
+			for (Unit bu : b.getBuilders()) {				
+		    	// if it's a idle builder, send it to the closest mineral line by default!***********************************************
+			}
+			*/	
+
 		}
 	
 		//do base onFrame()

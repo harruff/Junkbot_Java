@@ -6,11 +6,13 @@ public class MilitiaChunk {
 	private Unit target;
 	
 	private Game game;
+	//private Player self;
 	
 	public MilitiaChunk(ArrayList<Unit> scvs, Unit target, Game game) {
 		this.scvs = scvs;
 		this.target = target;
 		this.game = game;
+		//self = game.self();
 	}
 	
 	public ArrayList<Unit> getMySCVs() {return scvs;}
@@ -26,12 +28,12 @@ public class MilitiaChunk {
 		scvs = s;
 	}
 	
-	public void debug() {
+	public void debug(int r, Color c, boolean fill) {
 		for (Unit s : scvs) {
 			if (target != null && s.exists()) {
 				Position sPos = s.getPosition();
 				game.drawLineMap(sPos, target.getPosition(), Color.White);
-				game.drawCircleMap(sPos, 12, Color.Red);
+				game.drawCircleMap(sPos, r, c, fill);
 			}
 		}
 	}

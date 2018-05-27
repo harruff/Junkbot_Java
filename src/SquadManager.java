@@ -8,6 +8,7 @@ public class SquadManager {
 	private ArrayList<EnemyMemoryChunk> enemyMemory = new ArrayList<EnemyMemoryChunk>();
 	private ArrayList<Chokepoint> chokes = new ArrayList<Chokepoint>();
 	private RepairManager rm;
+
 	private TilePosition enemyBase = null, ourBase = null, ourNatExpo = null, enemyNatExpo = null;
 	//private ArrayList<Position> enemyUnitPositions = null;
 	//private ArrayList<Unit> 	enemyUnits= null;
@@ -30,7 +31,6 @@ public class SquadManager {
 	
 	private ArrayList<Unit> squad = new ArrayList<Unit>();
 	private ArrayList<Unit> mines = new ArrayList<Unit>();
-	//private ArrayList<Unit> tankSquad = new ArrayList<Unit>();
 	
 	private boolean bio = false;
     
@@ -208,7 +208,9 @@ public class SquadManager {
 
     	if (rm != null) {
         	rm.onFrame();
-        	rm.debug();
+        	Color color_rep = Color.Orange;
+        	int radius = 12;
+        	rm.debug(radius, color_rep, false);
     	}
     	
     	mines.clear();
@@ -435,6 +437,7 @@ public class SquadManager {
 			ArrayList<Unit> closeUnits = new ArrayList<Unit>(u.getUnitsInRadius(maxDist));
 			Unit closeBunker = null;
 
+			
 			for (Unit o : closeUnits) {
 				if (o.getPlayer() == self) {
 					if (o.getType() == UnitType.Terran_Bunker) {closeBunker = o;}
@@ -445,6 +448,7 @@ public class SquadManager {
 				}
 				//totalSelfSupply = medicsClose + marinesClose + vultsClose + golsClose;
 			}
+
 			
 			//find the closest enemy that isn't an egg, larva, or overlord
 			for (Unit e : closeUnits) {

@@ -10,7 +10,7 @@ public class ScoutManager {
 	private ArrayList<Position> baseLocations = new ArrayList<Position>();
 	private int maxScouts;
 	private int mainScoutVector = 1;
-	//private boolean scoutedMain = false;
+
 	private Game game;
 	
 	private TilePosition enemyBase = null, ourBase = null, ourNatExpo = null, enemyNatExpo = null;

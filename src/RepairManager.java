@@ -187,9 +187,9 @@ public class RepairManager {
 		}
 	}
 	
-	public void debug() {
+	public void debug(int rad, Color c, boolean fill) {
 		for (Unit r : repairmen) {
-			game.drawCircleMap(r.getPosition(), 12, Color.Orange);
+			game.drawCircleMap(r.getPosition(), rad, Color.Orange, fill);
 		}
 		for (RepairChunk rc : repairChunks) {
 			rc.debug();

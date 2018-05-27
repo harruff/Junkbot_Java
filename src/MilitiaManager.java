@@ -9,45 +9,51 @@ public class MilitiaManager {
 	//private TilePosition ourBase = null, ourNatExpo = null;
 	
 	//private int militiaNeeded = 0;
-	/*
-	private Game game;
+	
+	//private Game game;
+	//private Player self;
 	
 	public void setGame(Game g) {
-		this.game = g;
+		//this.game = g;
+		//this.self = game.self();
 	}
 	
 	public MilitiaManager(Game g) {
-		this.game = g;
+		//this.game = g;
 	}
-	*/
-	
-    /*public void setOurInformation(TilePosition ob, TilePosition one) {
-		ourBase = ob;
-		ourNatExpo = one;
+	/*
+  public void setOurInformation(TilePosition ob, TilePosition one) {
+
+
+  /*public void setOurInformation(TilePosition ob, TilePosition one) {
+    ourBase = ob;
+    ourNatExpo = one;
 	}
     
     public void setEnemies(ArrayList<Unit> e) {
     	enemies = e;
+    }
     }*/
     
-    public ArrayList<MilitiaChunk> getMilitiaChunks() {return militiaChunks;}
-    public void addMilitiaChunk(MilitiaChunk mc) {militiaChunks.add(mc);}
+  public ArrayList<MilitiaChunk> getMilitiaChunks() {return militiaChunks;}
+  public void addMilitiaChunk(MilitiaChunk mc) {militiaChunks.add(mc);}
 	public void removeMilitiaChunk(MilitiaChunk mc) {militiaChunks.remove(mc);}
     
 	//public ArrayList<Unit> getMilitia() {return militia;}
 	//public void addMilitia(Unit s) {militia.add(s);}
 	//public void removeMilitia(Unit s) {militia.remove(s);}
 	
+	/*
 	public void setMilitiaNeeded(int n) {
 		//militiaNeeded = n;
 	}
+	*/
 	
 	public void onFrame() {
 		ArrayList<MilitiaChunk> mc_toRemove = new ArrayList<MilitiaChunk>();
 		ArrayList<Unit> m_toRemove = new ArrayList<Unit>();
 		
 		//Remove militiaChunks
-		
 		for (MilitiaChunk mc : militiaChunks) {
 			//IF a militiaChunk's scv has been killed, THEN remove it
 			for (Unit m : mc.getMySCVs()) {
@@ -119,9 +125,9 @@ public class MilitiaManager {
 		}
 	}
 	
-	public void debug() {
+	public void debug(int r, Color c, boolean f) {
 		for (MilitiaChunk mc : militiaChunks) {
-			mc.debug();
+			mc.debug(r, c, f);
 		}
 	}
 }

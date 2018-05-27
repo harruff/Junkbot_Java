@@ -7,6 +7,7 @@ public class GeyserChunk {
 	private Unit geyser;
 	private boolean isRefinery = false;
 	private Game game;
+	//private Player self;
 	
 	public GeyserChunk(Unit geyser, Game game) {
 		this.geyser = geyser;
@@ -44,10 +45,10 @@ public class GeyserChunk {
 		gasSCVs.remove(s);
 	}
 	
-	public void debug() {
+	public void debug(int r, Color c, boolean fill) {
 		game.drawTextMap(geyser.getPosition(), String.valueOf(gasSCVs.size()));
 		for (Unit s : gasSCVs) {
-			game.drawCircleMap(s.getPosition(), 12, Color.Green);
+			game.drawCircleMap(s.getPosition(), r, c, fill);
 			game.drawLineMap(s.getPosition(), geyser.getPosition(), Color.White);
 		}
 

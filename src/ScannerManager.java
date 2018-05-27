@@ -5,15 +5,19 @@ import bwapi.*;
 public class ScannerManager {
 	private ArrayList<Unit> comsats = new ArrayList<Unit>();
 	private Game game;
+	//private Player self;
+	
 	//private TilePosition enemyBase = null, ourBase = null, ourNatExpo = null, enemyNatExpo = null;
 	//private ArrayList<EnemyMemoryChunk> enemyMemory = new ArrayList<EnemyMemoryChunk>();
 	//private int lastScanFrame = 0;
 	
 	public void setGame(Game g) {
 		this.game = g;
+		//this.self = game.self();
 	}
 
-    /*public void setOurInformation(TilePosition ob, TilePosition one) {
+	/*
+    public void setOurInformation(TilePosition ob, TilePosition one) {
 		ourBase = ob;
 		ourNatExpo = one;
 	}
@@ -25,7 +29,8 @@ public class ScannerManager {
     
     public void updateEnemyMemory(ArrayList<EnemyMemoryChunk> em) {
     	enemyMemory = em;
-    }*/
+    }
+    */
    
 	public void add(Unit m) {comsats.add(m);}
 	public void remove(Unit m) {comsats.remove(m);}	

@@ -23,17 +23,14 @@ public class ProductionManager {
 
 	private TilePosition enemyBase = null, ourBase = null, ourNatExpo = null, enemyNatExpo = null;
 	//private ArrayList<EnemyMemoryChunk> enemyMemory = new ArrayList<EnemyMemoryChunk>();
-	private boolean buildScanner = false; 
+	private boolean buildScanner = false;
 	//private boolean baseLanded = true;
 	//private boolean ebay = false;
-	private boolean academy = false;
+	private boolean academy = false; 
 	//private boolean refinery = false;
 	
 	private StringBuilder researchTime = new StringBuilder("Research Display:\n");
 	private StringBuilder research = new StringBuilder("\n");
-	
-	//private int initialMinerals = 0;
-	
 	private int marineCap = 0;
 	
 	public void debug() {
